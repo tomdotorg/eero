@@ -3,11 +3,11 @@ import logging
 import time
 import urllib2
 
-URL = "http://eero.com/"
+URL = "http://192.168.1.4/stats.htm"
 INTERVAL = 60
 AIRPORT_BIN = "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 
-logging.basicConfig(filename='./uptime.log', level=logging.DEBUG, \
+logging.basicConfig(filename='./uptime.log', level=logging.INFO, \
                   format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
 
 def logit():
@@ -29,6 +29,7 @@ while True:
         if not online:
             online = True
             came_online = time.localtime()
+            print "ok:", time.asctime()
             logging.warning("came back online")
             logging.warning("offline since: %s", time.asctime(went_offline))
             logit()
@@ -39,7 +40,7 @@ while True:
         logging.debug("retrieval ok: %d", tries)
     except Exception as e:
         logging.error("not ok")
-        print "not ok"
+        print "not ok:", time.asctime()
         logit()
         if online:
             online = False
