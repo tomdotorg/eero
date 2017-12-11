@@ -4,12 +4,11 @@ import logging
 import time
 import urllib2
 
-URL = "http://192.168.1.4/stats.htm"
 HOST = "192.168.1.254"
 INTERVAL = 60
 AIRPORT_BIN = "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 
-logging.basicConfig(filename='./uptime.log', level=logging.DEBUG, \
+logging.basicConfig(filename='./uptime.log', level=logging.INFO, \
                   format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
 
 def logit():
@@ -23,16 +22,6 @@ tries = 0
 
 logging.info("starting up monitoring")
 logit()
-
-
-def check_http(url):
-    logging.debug("check_http()")
-    try:
-        urllib2.urlopen(url, timeout=5).read()
-        return True
-    except Exception as e:
-        raise e
-
 
 def check_ping(hostname):
     logging.debug("check_ping()")
